@@ -16,6 +16,7 @@ def toSql(inp):  # Perevod integer v sql datu
 try:
     con = psycopg2.connect("host='dev.db-support.ru' dbname='sibgurman' user='sibgurman' password='sibgurman'")
     cur = con.cursor()
+    print("GIT")
     print("Enter start date(yyyymmdd): ")
     dateStart = toSql(input())
     print("Enter end date(yyyymmdd): ")
