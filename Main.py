@@ -16,7 +16,6 @@ def toSql(inp):  # Perevod integer v sql datu
 try:
     con = psycopg2.connect("host='dev.db-support.ru' dbname='sibgurman' user='sibgurman' password='sibgurman'")
     cur = con.cursor()
-    print("GIT")
     print("Enter start date(yyyymmdd): ")
     dateStart = toSql(input())
     print("Enter end date(yyyymmdd): ")
@@ -24,7 +23,11 @@ try:
     print("Enter articles for indexation: ")
     inp = [int(i) for i in input().split()]  # stroka v massiv integer
 
-    cur.execute("""select "common_salesdetail"."realizationDate", summa, articul_id  FROM common_salesdetail 
+    cur.execute("""select "common_salesdetail"."realizationDate", summa, articul_id , "common_articuls"."articul1C"  FROM common_salesdetail 
+    inner join "common_articuls" on
+      (
+       "common_salesdetail"."articul_id" = "common_articuls"."id"
+         ) 
                    where "common_salesdetail"."realizationDate" BETWEEN """ + dateStart + """  AND """ + dateEnd + """ """)  # sql zapros
     while True:
         row = cur.fetchone()
